@@ -2,17 +2,95 @@
 
 **Team ID:** SWTID-2026-7764  
 **Project date:** 30 September 2026  
-**Team members:** Thamothara N; Silambarsan M
+**Platform:** ServiceNow  
+**Project area:** Spreadsheet import, data quality, and reporting
 
-## Project summary
+## Demo
 
-This project documents a repeatable employee spreadsheet import into ServiceNow. A five-column workbook is staged in **Employee Import** (`u_employee_import`), processed by the **Sample Spreadsheet Import** Transform Map, and loaded into **Employee Test** (`u_employee_test`). The target fields are Employee ID, Employee Name, Email, Department, and Location, all configured as String fields. The map uses Employee ID coalesce to match existing records.
+[Watch the project demonstration video](https://drive.google.com/file/d/1z4COzqOmEL1DTo27pBcwj7iKN5Q8OqR9/view?usp=drive_link)
 
-The deliverable includes three ServiceNow reports—Employees by Department (Pie/Count), Employees by Location (Bar/Count), and Employee List Report—collected on **Employee Analytics Dashboards**. Dashboard sharing is documented for the intended users, groups, or roles.
+## Project team
 
-The import workflow evidence register includes ServiceNow screenshots from the supplied project walkthrough. The supplied walkthrough records a four-row sample run with two inserts and two updates; repeating the same file produced zero inserts, zero updates, and four ignored rows. The supplied Skill Wallet snapshot shows 50% overall progress and 50% for Milestone 1. Dates and progress for the other milestones, formal UAT signatures, and benchmark timings were not supplied, so the documents identify these as unspecified rather than presenting them as completed evidence.
+| Name | Role |
+| --- | --- |
+| Thamothara N | Member |
+| Silambarasan M | Member |
+| Santhosh Kumar V | Member |
+| Sivaranjan M | Member |
+| Pugazhanthi V K | Team Lead |
 
-## Document index
+## Project overview
+
+This project demonstrates a repeatable employee-data import from an Excel workbook into ServiceNow. The workbook is loaded into the **Employee Import** Import Set table, transformed by **Sample Spreadsheet Import**, and written to **Employee Test**. Employee ID is the coalesce key, so matching records can be updated and repeated unchanged rows can be ignored instead of duplicated.
+
+The target table includes five String fields: **Employee ID**, **Employee Name**, **Email**, **Department**, and **Location**. The workbook headers are **Employee ID**, **Name**, **Email**, **Department**, and **Location**. During transformation, **Name** maps to **Employee Name**; the other four columns map to their same-named target fields.
+
+## Import workflow
+
+```text
+Sample Spreadsheet.xlsx
+        ↓
+Employee Import (u_employee_import)
+        ↓
+Sample Spreadsheet Import Transform Map
+  Name → Employee Name
+  Employee ID → Employee ID (Coalesce)
+  Email, Department, Location → same-named fields
+        ↓
+Employee Test (u_employee_test)
+        ↓
+Employee List Report · Employees by Location · Employees by Department
+        ↓
+Employee Analytics Dashboard
+```
+
+### Configuration summary
+
+| Component | Project configuration |
+| --- | --- |
+| Source workbook | `Sample Spreadsheet.xlsx`, sheet 1, header row 1 |
+| Source headers | Employee ID, Name, Email, Department, Location |
+| Import Set | Employee Import (`u_employee_import`) |
+| Transform Map | Sample Spreadsheet Import |
+| Target table | Employee Test (`u_employee_test`) |
+| Field mapping | Employee ID → Employee ID; Name → Employee Name; Email → Email; Department → Department; Location → Location |
+| Duplicate handling | Employee ID field map has Coalesce enabled |
+| Reports | Employee List Report; Employees by Location (Bar/Count); Employees by Department (Pie/Count) |
+| Dashboard | Employee Analytics Dashboard |
+
+## Observed walkthrough results
+
+The supplied ServiceNow walkthrough records a four-row transformation with **2 inserts**, **2 updates**, **0 ignored rows**, and **0 errors**. A repeat submission of the same four-row file records **0 inserts**, **0 updates**, **4 ignored rows**, and **0 errors**. These are the results shown in the walkthrough evidence.
+
+The supplied Skill Wallet snapshot shows **50% overall progress** and **50% for Milestone 1**, with a 40-minute duration and two stories. Progress for the remaining milestones, formal UAT signatures, and measured performance timings were not provided in the project materials.
+
+## Project screenshots
+
+The following images are the supplied project screenshots. Each image is also available in the [`Screenshots`](Screenshots/) folder.
+
+### Source employee workbook
+
+![Source employee workbook showing Employee ID, Name, Email, Department, and Location](Screenshots/01_source_employee_workbook.png)
+
+### ServiceNow report inventory
+
+![ServiceNow report inventory listing the employee reports](Screenshots/02_servicenow_report_inventory.png)
+
+### Employee List Report
+
+![ServiceNow Employee List Report configuration and results](Screenshots/03_employee_list_report.png)
+
+### Employees by Location
+
+![ServiceNow Employees by Location report](Screenshots/04_employees_by_location.png)
+
+### Employees by Department
+
+![ServiceNow Employees by Department report](Screenshots/05_employees_by_department.png)
+
+## Documentation package
+
+The package follows the project phases. Word documents are editable source files; paired PDFs are provided for review and submission.
 
 ### 1. Ideation
 
@@ -20,7 +98,7 @@ The import workflow evidence register includes ServiceNow screenshots from the s
 - [Define Problem Statement](1.%20Ideation%20Phase/Define%20Problem%20Statement.docx) · [PDF](1.%20Ideation%20Phase/Define%20Problem%20Statement.pdf)
 - [Empathy Map Canvas](1.%20Ideation%20Phase/Empathy%20Map%20Canvas.docx) · [PDF](1.%20Ideation%20Phase/Empathy%20Map%20Canvas.pdf)
 
-### 2. Requirements and analysis
+### 2. Requirement analysis
 
 - [Data Flow Diagrams and User Stories](2.%20Requirement%20Analysis/Data%20Flow%20Diagrams%20and%20User%20Stories.docx) · [PDF](2.%20Requirement%20Analysis/Data%20Flow%20Diagrams%20and%20User%20Stories.pdf)
 - [Solution Requirements](2.%20Requirement%20Analysis/Solution%20Requirements.docx) · [PDF](2.%20Requirement%20Analysis/Solution%20Requirements.pdf)
@@ -52,4 +130,3 @@ The import workflow evidence register includes ServiceNow screenshots from the s
 
 - [Functional Specification Document](6.%20Project%20Documentation/Functional%20Specification%20Document.docx) · [PDF](6.%20Project%20Documentation/Functional%20Specification%20Document.pdf)
 - [Final Project Report](6.%20Project%20Documentation/Final%20Project%20Report.pdf)
-# Import-Data-using-Transform-Maps-Spreadsheet-
